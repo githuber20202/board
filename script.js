@@ -28,7 +28,7 @@ function renderProjects(projects) {
     const container = document.getElementById("projects-container");
     container.innerHTML = ""; // Clear existing content
 
-    projects.forEach(project => {
+    projects.forEach((project, index) => {
         const card = document.createElement("div");
         card.className = "card";
 
@@ -39,13 +39,50 @@ function renderProjects(projects) {
                 <p class="card-text"><strong>PreProd Version:</strong> ${project.preprodVersion || 'N/A'}</p>
                 <p class="card-text"><strong>Open Bugs:</strong> ${project.openBugs || 0}</p>
                 <p class="card-text"><strong>Backlog:</strong> ${project.backlog || 'None'}</p>
-                <div class="card-buttons">
-                    <button class="btn-details">Details</button>
-                    <button class="btn-edit">Edit</button>
-                </div>
+                <button class="edit-button" onclick="openEditModal(${index})">Edit</button>
             </div>
         `;
 
         container.appendChild(card);
     });
+}
+
+let currentProjectIndex = null; // Tracks which project is being edited
+let projectsData = []; // Stores the projects data
+
+function openEditModal(index) {
+    currentProjectIndex = index;
+    const project = projectsData[index];
+
+    // Fill the form with the project data
+    document.getElementById("edit-name").value = project.name || '';
+    document.getElementById("edit-prod-version").value = project.prodVersion || '';
+    document.getElementById("edit-preprod-version").value = project.preprodVersion || '';
+    document.getElementById("edit-open-bugs").value = project.openBugs || 0;
+    document.getElementById("edit-backlog").value = project.backlog || '';
+
+    document.getElementById("edit-modal").style.display = "block";
+}
+
+function closeEditModal() {
+    document.getElementById("edit-modal").style.display = "none";
+}
+
+function saveEdit() {
+    if (currentProjectIndex !== null) {
+        const project = projectsData[currentProjectIndex];
+
+        // Update project with form data
+        project.name = document.getElementById("edit-name").value;
+        project.prodVersion = document.getElementById("edit-prod-version").value;
+        project.preprodVersion = document.getElementById("edit-preprod-version").value;
+        project.openBugs = parseInt(document.getElementById("edit-open-bugs").value) || 0;
+        project.backlog = document.getElementById("edit-backlog").value;
+
+        // Re-render the projects
+        renderProjects(projectsData);
+
+        // Close the modal
+        closeEditModal();
+    }
 }

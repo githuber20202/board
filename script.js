@@ -39,6 +39,10 @@ function renderProjects(projects) {
                 <p class="card-text"><strong>PreProd Version:</strong> ${project.preprodVersion || 'N/A'}</p>
                 <p class="card-text"><strong>Open Bugs:</strong> ${project.openBugs || 0}</p>
                 <p class="card-text"><strong>Backlog:</strong> ${project.backlog || 'None'}</p>
+                <div class="card-buttons">
+                    <button class="btn-details">Details</button>
+                    <button class="btn-edit">Edit</button>
+                </div>
             </div>
         `;
 

@@ -108,3 +108,24 @@ footer {
     background: var(--header-bg);
     color: white;
 }
+
+.card-buttons {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.card-buttons button {
+    background-color: var(--header-bg);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+.card-buttons button:hover {
+    background-color: var(--accent-color);
+}

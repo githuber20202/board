@@ -63,16 +63,24 @@ function renderProjects(projects) {
 
 // Open Edit Modal
 function openEditModal(index) {
+    if (index < 0 || index >= projectsData.length) {
+        alert("Invalid project index.");
+        return;
+    }
     currentProjectIndex = index;
     const project = projectsData[index];
+    if (!project) {
+        alert("Project not found.");
+        return;
+    }
 
-    // Fill the form with the project data
     document.getElementById("edit-name").value = project.name || '';
     document.getElementById("edit-open-bugs").value = project.openBugs || 0;
     document.getElementById("edit-prod-version").value = project.prodVersion || '';
 
     document.getElementById("edit-modal").style.display = "block";
 }
+
 
 // Close Edit Modal
 function closeEditModal() {
@@ -118,16 +126,11 @@ function clearLocalStorage() {
 }
 
 function downloadUpdatedJSON() {
-    // הפיכת הנתונים ל-JSON מסודר
-    const dataStr = JSON.stringify(projectsData, null, 4);
-    const blob = new Blob([dataStr], { type: "application/json" }); // יצירת קובץ JSON
-    const url = URL.createObjectURL(blob);
-
-    // יצירת קישור להורדה
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "updated_projects.json"; // שם הקובץ
-    a.click(); // הורדת הקובץ באופן אוטומטי
-
-    URL.revokeObjectURL(url); // ניקוי ה-URL הזמני
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(projectsData));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "projects.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
 }

@@ -35,14 +35,6 @@
                 </form>
             </div>
         </div>        
-        <!-- File Upload Section -->
-        <section class="upload-section">
-            <label for="fileInput" class="upload-button" tabindex="0" aria-label="Upload a JSON file containing project data">
-                העלה קובץ
-            </label>
-            <input type="file" id="fileInput" accept=".json" style="display: none;">
-            <button id="download-json" onclick="downloadUpdatedJSON()">שמור קובץ</button>
-        </section>
 
         <!-- Projects Section -->
         <div class="grid-container" id="projects-container">
@@ -50,19 +42,14 @@
                 No projects to display. Please upload a JSON file.
             </p>
         </div>
-
-        <!-- Error Message -->
-        <div id="upload-error-message" style="text-align: center; color: red; display: none;">
-            The uploaded file is invalid. Please upload a valid JSON file.
-        </div>
-
-        <!-- Loading Spinner -->
-        <div id="loading-spinner" style="display: none; text-align: center;">
-            <p>Loading...</p>
-        </div>
     </main>
     <footer>
-        <button id="toggle-theme">שנה עיצוב</button>
+        <button id="upload-button" class="action-button equal-buttons special-buttons" onclick="document.getElementById('fileInput').click()">
+            העלה קובץ
+        </button>
+        <input type="file" id="fileInput" accept=".json" style="display: none;">
+        <button id="download-json" class="equal-buttons special-buttons" onclick="downloadUpdatedJSON()">שמור קובץ</button>
+        <button id="toggle-theme" class="equal-buttons special-buttons">שנה עיצוב</button>
         <p>&copy; 2025 QA Projects Dashboard</p>
     </footer>
     <script src="script.js"></script>

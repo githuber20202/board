@@ -31,61 +31,54 @@ header {
     top: 0;
 }
 
+/* Special Title Style */
+.special-title {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    animation: gold-glow 2s infinite;
+    text-shadow: 2px 2px 4px rgb(255, 255, 255); /* Added black shadow */
+    font-size: 3em;
+}
+
 /* Toggle Theme Button */
 #toggle-theme {
     background-color: var(--header-bg);
     color: white;
-    border: 1px solid rgb(161, 142, 255); /* Added black border */
+    border: 1px solid rgb(161, 142, 255);
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
-    transition: background-color 0.3s;
-    margin-bottom: 10px; /* Added margin to separate from text */
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 #toggle-theme:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
 }
+
 
 /* Upload Section */
 .upload-section {
     text-align: center;
-    margin: 20px 0;
-}
-
-.upload-button {
-    display: inline-block;
-    padding: 15px 30px; /* Increased padding for larger button */
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2em; /* Increased font size */
-    animation: blue-spotlight 4s infinite ease-in-out;
-    transition: background-color 0.3s, color 0.3s;
-    min-width: 150px; /* Increased min-width */
-}
-
-.upload-button:hover {
-    background-color: #f0f0f0;
+    margin: 30px 0;
 }
 
 /* Grid Container */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Increased min-width to 400px */
-    gap: 20px;
+    gap: 8px;
+    margin-top: 0.2cm; /* Added margin-top to lower the cards */
 }
 
 /* Card Styles */
 .card {
     background-color: var(--card-bg);
     color: var(--text-color);
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
+    border: 2.5px solid #ccc;
+    border-radius: 5px;
+    padding: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
 }
@@ -101,54 +94,54 @@ header {
 }
 
 .card-body {
-    padding: 15px;
+    padding: 30px;
     text-align: center;
 }
 
 .card-title {
-    font-size: 1.2em;
+    font-size: 1.8em;
     margin: 10px 0;
     color: var(--text-color);
 }
 
 .card-text {
     margin: 5px 0;
-    font-size: 0.9em;
+    font-size: 1.2em;
     color: var(--text-color);
 }
 
 /* Footer */
 footer {
     text-align: center;
-    padding: 10px;
-    background: var(--header-bg);
+    padding: 20px;
+    background-color: var(--header-bg);
     color: white;
     position: fixed;
     width: 100%;
     bottom: 0;
 }
 
-/* Card Buttons */
-.card-buttons {
-    margin-top: 15px;
-    text-align: center;
-}
-
-.card-buttons button {
+/* Buttons */
+.special-buttons {
     background-color: var(--header-bg);
     color: white;
-    border: none;
+    border: 1px solid rgb(161, 142, 255);
     padding: 8px 16px;
-    margin: 5px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
-    transition: background-color 0.3s;
-    min-width: 110px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: gold-glow 2s infinite; /* Unique animation for buttons */
+    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+    text-align: center;
+    min-width: 150px;
 }
 
-.card-buttons button:hover {
-    background-color: var(--accent-color);
+.special-buttons:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+    transform: scale(1.05);
 }
 
 /* Modal */
@@ -201,32 +194,55 @@ input, textarea {
 .edit-button {
     background-color: white;
     color: black;
-    border: 1px solid black;
-    border-radius: 5px;
+    border: 1px solid rgb(118, 107, 185);
+    border-radius: 80px;
     padding: 8px 16px;
     cursor: pointer;
     font-size: 0.9em;
     transition: background-color 0.3s, color 0.3s;
-    min-width: 110px;
+    min-width: 80px;
 }
 
 .edit-button:hover {
     background-color: #f0f0f0;
     color: #333;
 }
+@keyframes title-glow {
+    0% {
+        text-shadow: 0 0 5px rgb(255, 255, 255);
+    }
+    50% {
+        text-shadow: 0 0 20px rgb(255, 255, 255);
+    }
+    100% {
+        text-shadow: 0 0 5px rgb(38, 0, 255);
+    }
+}
 
 /* Spotlight Animation */
 @keyframes blue-spotlight {
     0%, 100% {
-        background-color: white;
+        background-color: rgb(0, 0, 0);
     }
     50% {
-        background-color: #e0eefc;
+        background-color: #ffffff;
+    }
+}
+
+@keyframes gold-glow {
+    0% {
+        text-shadow: 0 0 5px rgb(255, 255, 255);
+    }
+    50% {
+        text-shadow: 0 0 20px rgb(255, 255, 255);
+    }
+    100% {
+        text-shadow: 0 0 5px rgb(38, 0, 255);
     }
 }
 
 /* Buttons with Spotlight Animation */
-button:not(#toggle-theme), .upload-button {
+button:not .upload-button {
     background-color: white;
     color: black;
     border: 1px solid black;
@@ -236,44 +252,9 @@ button:not(#toggle-theme), .upload-button {
     font-size: 0.9em;
     animation: blue-spotlight 4s infinite ease-in-out;
     transition: background-color 0.3s, color 0.3s;
-    min-width: 110px;
+    min-width: 200px;
 }
 
-/* Rollover (Hover) Effect */
-button:hover, .upload-button:hover {
-    background-color: #f0f0f0;
-    color: #333;
-}
-
-@keyframes light-sweep {
-    0% {
-        left: -50%; /* מתחיל מחוץ למסך בצד שמאל */
-    }
-    100% {
-        left: 100%; /* עובר מחוץ למסך בצד ימין */
-    }
-}
-
-.light-effect {
-    position: fixed;
-    top: 0;
-    left: -50%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
-    animation: light-sweep 5s infinite ease-in-out;
-    pointer-events: none; /* מבטיח שהאפקט לא יפריע ללחיצות */
-    z-index: 9999; /* שומר שהאפקט יהיה מעל הכל */
-}
-
-/* ...existing code... */
-
-.special-title {
-    font-weight: bold;
-    color: rgb(255, 241, 162);
-    animation: gold-glow 2s infinite;
-    text-shadow: 2px 2px 4px rgb(255, 249, 139); /* Added black shadow */
-}
 
 @keyframes gold-glow {
     0% {

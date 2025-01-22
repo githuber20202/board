@@ -33,7 +33,6 @@ function renderProjects(projects) {
         card.className = "card";
 
         card.innerHTML = `
-            <img src="${project.image || 'https://via.placeholder.com/300x150'}" alt="${project.name}">
             <div class="card-body">
                 <h3 class="card-title">${project.name}</h3>
                 <p class="card-text"><strong>Prod Version:</strong> ${project.prodVersion || 'N/A'}</p>

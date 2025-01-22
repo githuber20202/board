@@ -187,3 +187,19 @@ button {
 button:hover {
     background-color: #e64a19;
 }
+
+button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    margin: 10px 5px; /* מרווח */
+}
+
+button:hover {
+    background-color: #e64a19;
+}

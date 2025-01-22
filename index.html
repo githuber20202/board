@@ -39,9 +39,10 @@
         <!-- File Upload Section -->
         <section class="upload-section">
             <label for="fileInput" class="upload-button" tabindex="0" aria-label="Upload a JSON file containing project data">
-                Upload JSON File
+                Upload JSON
             </label>
             <input type="file" id="fileInput" accept=".json" style="display: none;">
+            <button id="download-json" onclick="downloadUpdatedJSON()">Save JSON</button>
         </section>
 
         <!-- Projects Section -->

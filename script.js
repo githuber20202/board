@@ -16,8 +16,9 @@ function handleFileUpload(event) {
         const reader = new FileReader();
         reader.onload = function (e) {
             try {
-                const data = JSON.parse(e.target.result); // Parse the JSON data
+                const data = JSON.parse(e.target.result);
                 projectsData = data; // Update global projectsData
+                localStorage.setItem('projectsData', JSON.stringify(data)); // Save to localStorage
                 renderProjects(projectsData); // Render the projects
             } catch (error) {
                 console.error("Invalid JSON file:", error);
@@ -62,8 +63,6 @@ function renderProjects(projects) {
     });
 }
 
-
-
 // Open Edit Modal
 function openEditModal(index) {
     currentProjectIndex = index;
@@ -96,10 +95,45 @@ function saveEdit() {
         project.openBugs = parseInt(document.getElementById("edit-open-bugs").value) || 0;
         project.backlog = document.getElementById("edit-backlog").value;
 
+        // Save updated data back to localStorage
+        localStorage.setItem('projectsData', JSON.stringify(projectsData));
+
         // Re-render the projects
         renderProjects(projectsData);
 
         // Close the modal
         closeEditModal();
     }
+}
+
+// Load Data from LocalStorage on Page Load
+window.addEventListener('load', () => {
+    const storedProjects = localStorage.getItem('projectsData');
+    if (storedProjects) {
+        projectsData = JSON.parse(storedProjects);
+        renderProjects(projectsData);
+    }
+});
+
+// Clear LocalStorage
+function clearLocalStorage() {
+    localStorage.removeItem('projectsData'); // Remove data from localStorage
+    projectsData = []; // Clear global data
+    renderProjects(projectsData); // Clear the display
+    alert("Projects cleared!");
+}
+
+function downloadUpdatedJSON() {
+    // הפיכת הנתונים ל-JSON מסודר
+    const dataStr = JSON.stringify(projectsData, null, 4);
+    const blob = new Blob([dataStr], { type: "application/json" }); // יצירת קובץ JSON
+    const url = URL.createObjectURL(blob);
+
+    // יצירת קישור להורדה
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "updated_projects.json"; // שם הקובץ
+    a.click(); // הורדת הקובץ באופן אוטומטי
+
+    URL.revokeObjectURL(url); // ניקוי ה-URL הזמני
 }

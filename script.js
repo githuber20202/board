@@ -52,9 +52,8 @@ function renderProjects(projects) {
         card.innerHTML = `
             <div class="card-body">
                 <h3 class="card-title">${project.name}</h3>
-                <p class="card-text"><strong>Prod Version:</strong> ${project.prodVersion || 'N/A'}</p>
-                <p class="card-text"><strong>PreProd Version:</strong> ${project.preprodVersion || 'N/A'}</p>
                 <p class="card-text"><strong>Open Bugs:</strong> ${project.openBugs || 0}</p>
+                <p class="card-text"><strong>Prod Version:</strong> ${project.prodVersion || 'N/A'}</p>
                 <p class="card-text"><strong>Backlog:</strong> ${project.backlog || 'None'}</p>
                 <button class="edit-button" onclick="openEditModal(${index})">Edit</button>
             </div>
@@ -62,10 +61,6 @@ function renderProjects(projects) {
         container.appendChild(card);
     });
 }
-
-document.querySelectorAll('.edit-button').forEach(button => {
-    button.style.display = 'none';
-});
 
 // Open Edit Modal
 function openEditModal(index) {

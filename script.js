@@ -52,9 +52,9 @@ function renderProjects(projects) {
         card.innerHTML = `
             <div class="card-body">
                 <h3 class="card-title">${project.name}</h3>
-                <p class="card-text"><strong>Open Bugs:</strong> ${project.openBugs || 0}</p>
-                <p class="card-text"><strong>Prod Version:</strong> ${project.prodVersion || 'N/A'}</p>
-                <button class="edit-button" onclick="openEditModal(${index})">Edit</button>
+                <p class="card-text"><strong>באגים פתוחים:</strong> ${project.openBugs || 0}</p>
+                <p class="card-text"><strong>גרסת פרוקדשן:</strong> ${project.prodVersion || 'N/A'}</p>
+                <button class="edit-button" onclick="openEditModal(${index})">עריכה</button>
             </div>
         `;
         container.appendChild(card);

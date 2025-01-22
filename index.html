@@ -8,8 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Open Bugs</h1>
-        <button id="toggle-theme">Toggle Theme</button>
+        <h1><span class="special-title">פרויקטים</span></h1>
     </header>
     <main>
         <div id="edit-modal" class="modal" style="display: none;">
@@ -39,10 +38,10 @@
         <!-- File Upload Section -->
         <section class="upload-section">
             <label for="fileInput" class="upload-button" tabindex="0" aria-label="Upload a JSON file containing project data">
-                Upload JSON
+                העלה קובץ
             </label>
             <input type="file" id="fileInput" accept=".json" style="display: none;">
-            <button id="download-json" onclick="downloadUpdatedJSON()">Save JSON</button>
+            <button id="download-json" onclick="downloadUpdatedJSON()">שמור קובץ</button>
         </section>
 
         <!-- Projects Section -->
@@ -63,7 +62,8 @@
         </div>
     </main>
     <footer>
-        <p>&copy; 2025 QA Projects Dashboard </p>
+        <button id="toggle-theme">שנה עיצוב</button>
+        <p>&copy; 2025 QA Projects Dashboard</p>
     </footer>
     <script src="script.js"></script>
 </body>

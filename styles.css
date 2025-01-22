@@ -35,12 +35,13 @@ header {
 #toggle-theme {
     background-color: var(--header-bg);
     color: white;
-    border: none;
+    border: 1px solid rgb(161, 142, 255); /* Added black border */
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
     transition: background-color 0.3s;
+    margin-bottom: 10px; /* Added margin to separate from text */
 }
 
 #toggle-theme:hover {
@@ -55,7 +56,7 @@ header {
 
 .upload-button {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 6px 12px;
     background-color: white;
     color: black;
     border: 1px solid black;
@@ -64,7 +65,7 @@ header {
     font-size: 0.9em;
     animation: blue-spotlight 4s infinite ease-in-out;
     transition: background-color 0.3s, color 0.3s;
-    min-width: 110px;
+    min-width: 90px;
 }
 
 .upload-button:hover {
@@ -74,9 +75,8 @@ header {
 /* Grid Container */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Increased min-width to 400px */
     gap: 20px;
-    padding: 20px;
 }
 
 /* Card Styles */
@@ -122,6 +122,9 @@ footer {
     padding: 10px;
     background: var(--header-bg);
     color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 /* Card Buttons */
@@ -217,7 +220,7 @@ input, textarea {
         background-color: white;
     }
     50% {
-        background-color: #b9dbff;
+        background-color: #e0eefc;
     }
 }
 
@@ -261,3 +264,26 @@ button:hover, .upload-button:hover {
     pointer-events: none; /* מבטיח שהאפקט לא יפריע ללחיצות */
     z-index: 9999; /* שומר שהאפקט יהיה מעל הכל */
 }
+
+/* ...existing code... */
+
+.special-title {
+    font-weight: bold;
+    color: rgb(255, 241, 162);
+    animation: gold-glow 2s infinite;
+    text-shadow: 2px 2px 4px rgb(255, 249, 139); /* Added black shadow */
+}
+
+@keyframes gold-glow {
+    0% {
+        text-shadow: 0 0 5px rgb(255, 255, 255);
+    }
+    50% {
+        text-shadow: 0 0 20px rgb(255, 255, 255);
+    }
+    100% {
+        text-shadow: 0 0 5px rgb(38, 0, 255);
+    }
+}
+
+/* ...existing code... */

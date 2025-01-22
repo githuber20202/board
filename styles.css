@@ -3,7 +3,7 @@
     --text-color: #333;
     --card-bg: white;
     --header-bg: #007BFF;
-    --accent-color: #FF5722;
+    --accent-color: #ffffff;
 }
 
 body.dark {
@@ -21,6 +21,7 @@ body {
     color: var(--text-color);
 }
 
+/* Header */
 header {
     background-color: var(--header-bg);
     color: white;
@@ -30,16 +31,23 @@ header {
     top: 0;
 }
 
-header button {
-    background-color: var(--accent-color);
+/* Toggle Theme Button */
+#toggle-theme {
+    background-color: var(--header-bg);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
 }
 
+#toggle-theme:hover {
+    background-color: #0056b3;
+}
+
+/* Upload Section */
 .upload-section {
     text-align: center;
     margin: 20px 0;
@@ -47,18 +55,23 @@ header button {
 
 .upload-button {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: var(--accent-color);
-    color: white;
+    padding: 8px 16px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.9em;
+    animation: blue-spotlight 4s infinite ease-in-out;
+    transition: background-color 0.3s, color 0.3s;
+    min-width: 110px;
 }
 
 .upload-button:hover {
-    background-color: #e64a19;
+    background-color: #f0f0f0;
 }
 
+/* Grid Container */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -66,6 +79,7 @@ header button {
     padding: 20px;
 }
 
+/* Card Styles */
 .card {
     background: var(--card-bg);
     border: 1px solid #ddd;
@@ -102,6 +116,7 @@ header button {
     color: var(--text-color);
 }
 
+/* Footer */
 footer {
     text-align: center;
     padding: 10px;
@@ -109,6 +124,7 @@ footer {
     color: white;
 }
 
+/* Card Buttons */
 .card-buttons {
     margin-top: 15px;
     text-align: center;
@@ -118,20 +134,22 @@ footer {
     background-color: var(--header-bg);
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 16px;
     margin: 5px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
     transition: background-color 0.3s;
+    min-width: 110px;
 }
 
 .card-buttons button:hover {
     background-color: var(--accent-color);
 }
-/* Modal Styles */
+
+/* Modal */
 .modal {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -158,9 +176,10 @@ footer {
     right: 20px;
     font-size: 1.5em;
     cursor: pointer;
-    color: red;
+    color: rgba(198, 79, 79, 0.465);
 }
 
+/* Inputs and Textareas */
 label {
     display: block;
     margin: 10px 0 5px;
@@ -174,32 +193,71 @@ input, textarea {
     border-radius: 5px;
 }
 
-button {
-    background-color: var(--accent-color);
-    color: white;
-    padding: 10px 15px;
-    border: none;
+/* Edit Button */
+.edit-button {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s, color 0.3s;
+    min-width: 110px;
+}
+
+.edit-button:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Spotlight Animation */
+@keyframes blue-spotlight {
+    0%, 100% {
+        background-color: white;
+    }
+    50% {
+        background-color: #b9dbff;
+    }
+}
+
+/* Buttons with Spotlight Animation */
+button:not(#toggle-theme), .upload-button {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 0.9em;
+    animation: blue-spotlight 4s infinite ease-in-out;
+    transition: background-color 0.3s, color 0.3s;
+    min-width: 110px;
 }
 
-button:hover {
-    background-color: #e64a19;
+/* Rollover (Hover) Effect */
+button:hover, .upload-button:hover {
+    background-color: #f0f0f0;
+    color: #333;
 }
 
-button {
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s;
-    margin: 10px 5px; /* מרווח */
+@keyframes light-sweep {
+    0% {
+        left: -50%; /* מתחיל מחוץ למסך בצד שמאל */
+    }
+    100% {
+        left: 100%; /* עובר מחוץ למסך בצד ימין */
+    }
 }
 
-button:hover {
-    background-color: #e64a19;
+.light-effect {
+    position: fixed;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+    animation: light-sweep 5s infinite ease-in-out;
+    pointer-events: none; /* מבטיח שהאפקט לא יפריע ללחיצות */
+    z-index: 9999; /* שומר שהאפקט יהיה מעל הכל */
 }

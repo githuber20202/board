@@ -63,6 +63,10 @@ function renderProjects(projects) {
     });
 }
 
+document.querySelectorAll('.edit-button').forEach(button => {
+    button.style.display = 'none';
+});
+
 // Open Edit Modal
 function openEditModal(index) {
     currentProjectIndex = index;

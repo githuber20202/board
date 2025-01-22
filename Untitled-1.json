@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Project A",
+        "image": "https://via.placeholder.com/300x150",
+        "prodVersion": "1.0.0",
+        "preprodVersion": "0.9.5",
+        "openBugs": 10,
+        "backlog": "UI fixes, API updates"
+    },
+    {
+        "name": "Project B",
+        "image": "https://via.placeholder.com/300x150",
+        "prodVersion": "2.3.1",
+        "preprodVersion": "2.2.9",
+        "openBugs": 5,
+        "backlog": "New feature testing"
+    }
+]

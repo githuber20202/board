@@ -94,7 +94,7 @@ function saveEdit() {
 
         // Update project with form data
         project.name = document.getElementById("edit-name").value;
-        project.openBugs = parseInt(document.getElementById("edit-open-bugs").value) || 0;
+        project.openBugs = Math.max(0, parseInt(document.getElementById("edit-open-bugs").value) || 0); // Ensure non-negative value
         project.prodVersion = document.getElementById("edit-prod-version").value;
 
         // Save updated data back to localStorage

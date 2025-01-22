@@ -3,6 +3,10 @@ document.getElementById("toggle-theme").addEventListener("click", () => {
     document.body.classList.toggle("dark");
 });
 
+// Global Variables
+let projectsData = []; // To store the uploaded project data
+let currentProjectIndex = null; // To track the currently edited project
+
 // Handle File Upload
 document.getElementById("fileInput").addEventListener("change", handleFileUpload);
 
@@ -10,10 +14,11 @@ function handleFileUpload(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             try {
-                const data = JSON.parse(e.target.result);
-                renderProjects(data);
+                const data = JSON.parse(e.target.result); // Parse the JSON data
+                projectsData = data; // Update global projectsData
+                renderProjects(projectsData); // Render the projects
             } catch (error) {
                 console.error("Invalid JSON file:", error);
                 alert("The uploaded file is not a valid JSON.");
@@ -26,12 +31,23 @@ function handleFileUpload(event) {
 // Render Project Cards
 function renderProjects(projects) {
     const container = document.getElementById("projects-container");
+    const noProjectsMessage = document.getElementById("no-projects-message");
+
+    if (noProjectsMessage) {
+        if (projects.length === 0) {
+            noProjectsMessage.style.display = "block"; // Show message if no projects
+            container.innerHTML = ""; // Clear container
+            return;
+        } else {
+            noProjectsMessage.style.display = "none"; // Hide the message
+        }
+    }
+
     container.innerHTML = ""; // Clear existing content
 
     projects.forEach((project, index) => {
         const card = document.createElement("div");
         card.className = "card";
-
         card.innerHTML = `
             <div class="card-body">
                 <h3 class="card-title">${project.name}</h3>
@@ -42,14 +58,13 @@ function renderProjects(projects) {
                 <button class="edit-button" onclick="openEditModal(${index})">Edit</button>
             </div>
         `;
-
         container.appendChild(card);
     });
 }
 
-let currentProjectIndex = null; // Tracks which project is being edited
-let projectsData = []; // Stores the projects data
 
+
+// Open Edit Modal
 function openEditModal(index) {
     currentProjectIndex = index;
     const project = projectsData[index];
@@ -64,10 +79,12 @@ function openEditModal(index) {
     document.getElementById("edit-modal").style.display = "block";
 }
 
+// Close Edit Modal
 function closeEditModal() {
     document.getElementById("edit-modal").style.display = "none";
 }
 
+// Save Edited Project
 function saveEdit() {
     if (currentProjectIndex !== null) {
         const project = projectsData[currentProjectIndex];

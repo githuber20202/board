@@ -54,7 +54,6 @@ function renderProjects(projects) {
                 <h3 class="card-title">${project.name}</h3>
                 <p class="card-text"><strong>Open Bugs:</strong> ${project.openBugs || 0}</p>
                 <p class="card-text"><strong>Prod Version:</strong> ${project.prodVersion || 'N/A'}</p>
-                <p class="card-text"><strong>Backlog:</strong> ${project.backlog || 'None'}</p>
                 <button class="edit-button" onclick="openEditModal(${index})">Edit</button>
             </div>
         `;
@@ -69,10 +68,8 @@ function openEditModal(index) {
 
     // Fill the form with the project data
     document.getElementById("edit-name").value = project.name || '';
-    document.getElementById("edit-prod-version").value = project.prodVersion || '';
-    document.getElementById("edit-preprod-version").value = project.preprodVersion || '';
     document.getElementById("edit-open-bugs").value = project.openBugs || 0;
-    document.getElementById("edit-backlog").value = project.backlog || '';
+    document.getElementById("edit-prod-version").value = project.prodVersion || '';
 
     document.getElementById("edit-modal").style.display = "block";
 }
@@ -89,10 +86,8 @@ function saveEdit() {
 
         // Update project with form data
         project.name = document.getElementById("edit-name").value;
-        project.prodVersion = document.getElementById("edit-prod-version").value;
-        project.preprodVersion = document.getElementById("edit-preprod-version").value;
         project.openBugs = parseInt(document.getElementById("edit-open-bugs").value) || 0;
-        project.backlog = document.getElementById("edit-backlog").value;
+        project.prodVersion = document.getElementById("edit-prod-version").value;
 
         // Save updated data back to localStorage
         localStorage.setItem('projectsData', JSON.stringify(projectsData));

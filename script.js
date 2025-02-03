@@ -29,34 +29,30 @@ function handleFileUpload(event) {
     }
 }
 
-// Render Project Cards
+// Function to render project cards
 function renderProjects(projects) {
     const container = document.getElementById("projects-container");
-    const noProjectsMessage = document.getElementById("no-projects-message");
-
-    if (noProjectsMessage) {
-        if (projects.length === 0) {
-            noProjectsMessage.style.display = "block"; // Show message if no projects
-            container.innerHTML = ""; // Clear container
-            return;
-        } else {
-            noProjectsMessage.style.display = "none"; // Hide the message
-        }
-    }
-
     container.innerHTML = ""; // Clear existing content
 
     projects.forEach((project, index) => {
         const card = document.createElement("div");
         card.className = "card";
+
+        let fieldsHTML = "";
+        for (let i = 1; i <= 4; i++) {
+            const fieldName = project.fieldNames?.[i] || `שדה ${i}`;
+            const fieldValue = project.fields?.[i] || "N/A";
+            fieldsHTML += `<p class="card-text"><strong>${fieldName}:</strong> ${fieldValue}</p>`;
+        }
+
         card.innerHTML = `
             <div class="card-body">
                 <h3 class="card-title">${project.name}</h3>
-                <p class="card-text"><strong>באגים פתוחים:</strong> ${project.openBugs || 0}</p>
-                <p class="card-text"><strong>גרסת פרוקדשן:</strong> ${project.prodVersion || 'N/A'}</p>
+                ${fieldsHTML}
                 <button class="edit-button" onclick="openEditModal(${index})">עריכה</button>
             </div>
         `;
+
         container.appendChild(card);
     });
 }
@@ -67,24 +63,58 @@ function openEditModal(index) {
         alert("Invalid project index.");
         return;
     }
+
     currentProjectIndex = index;
     const project = projectsData[index];
-    if (!project) {
-        alert("Project not found.");
+
+    document.getElementById("edit-name").value = project.name || "";
+
+    const fieldsContainer = document.getElementById("edit-fields-container");
+    if (!fieldsContainer) {
+        console.error("Error: #edit-fields-container not found!");
         return;
     }
 
-    document.getElementById("edit-name").value = project.name || '';
-    document.getElementById("edit-open-bugs").value = project.openBugs || 0;
-    document.getElementById("edit-prod-version").value = project.prodVersion || '';
+    let fieldsHTML = "";
+    for (let i = 1; i <= 4; i++) {
+        const fieldName = project.fieldNames?.[i] || `שדה ${i}`;
+        const fieldValue = project.fields?.[i] || "";
 
+        fieldsHTML += `
+            <label for="edit-field-name-${i}">שם שדה ${i}:</label>
+            <input type="text" id="edit-field-name-${i}" value="${fieldName}">
+
+            <label for="edit-field-value-${i}">ערך שדה ${i}:</label>
+            <input type="text" id="edit-field-value-${i}" value="${fieldValue}">
+        `;
+    }
+
+    fieldsContainer.innerHTML = fieldsHTML;
     document.getElementById("edit-modal").style.display = "block";
 }
 
-
-// Close Edit Modal
 function closeEditModal() {
-    document.getElementById("edit-modal").style.display = "none";
+    const modal = document.getElementById("edit-modal");
+    if (modal) {
+        modal.style.display = "none";
+    } else {
+        console.error("Error: #edit-modal not found!");
+    }
+}
+
+function downloadUpdatedJSON() {
+    if (projectsData.length === 0) {
+        alert("אין נתונים להורדה!");
+        return;
+    }
+
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(projectsData, null, 4));
+    const downloadAnchorNode = document.createElement("a");
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "projects.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    document.body.removeChild(downloadAnchorNode);
 }
 
 // Save Edited Project
@@ -92,18 +122,31 @@ function saveEdit() {
     if (currentProjectIndex !== null) {
         const project = projectsData[currentProjectIndex];
 
-        // Update project with form data
-        project.name = document.getElementById("edit-name").value;
-        project.openBugs = Math.max(0, parseInt(document.getElementById("edit-open-bugs").value) || 0); // Ensure non-negative value
-        project.prodVersion = document.getElementById("edit-prod-version").value;
+        // שמירת שם הפרויקט
+        project.name = document.getElementById("edit-name").value.trim();
 
-        // Save updated data back to localStorage
+        // יצירת מבנה נתונים במקרה שהוא חסר
+        if (!project.fieldNames) project.fieldNames = {};
+        if (!project.fields) project.fields = {};
+
+        // שמירת שמות השדות והערכים שלהם
+        for (let i = 1; i <= 4; i++) {
+            const fieldNameInput = document.getElementById(`edit-field-name-${i}`);
+            const fieldValueInput = document.getElementById(`edit-field-value-${i}`);
+
+            if (fieldNameInput && fieldValueInput) {
+                project.fieldNames[i] = fieldNameInput.value.trim() || `שדה ${i}`;
+                project.fields[i] = fieldValueInput.value.trim() || "N/A";
+            }
+        }
+
+        // שמירת הנתונים ב-LocalStorage
         localStorage.setItem('projectsData', JSON.stringify(projectsData));
 
-        // Re-render the projects
+        // עדכון התצוגה מחדש
         renderProjects(projectsData);
 
-        // Close the modal
+        // סגירת חלון העריכה
         closeEditModal();
     }
 }
@@ -111,26 +154,24 @@ function saveEdit() {
 // Load Data from LocalStorage on Page Load
 window.addEventListener('load', () => {
     const storedProjects = localStorage.getItem('projectsData');
+
     if (storedProjects) {
         projectsData = JSON.parse(storedProjects);
-        renderProjects(projectsData);
+    } else {
+        fetch("projects.json")
+            .then(response => response.json())
+            .then(data => {
+                projectsData = data;
+                localStorage.setItem('projectsData', JSON.stringify(data));
+                renderProjects(projectsData);
+            })
+            .catch(error => {
+                console.error("Error loading JSON:", error);
+                projectsData = []; // ודא שהמערך לא ריק
+                renderProjects(projectsData);
+            });
     }
+
+    renderProjects(projectsData);
 });
 
-// Clear LocalStorage
-function clearLocalStorage() {
-    localStorage.removeItem('projectsData'); // Remove data from localStorage
-    projectsData = []; // Clear global data
-    renderProjects(projectsData); // Clear the display
-    alert("Projects cleared!");
-}
-
-function downloadUpdatedJSON() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(projectsData));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", "projects.json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-}

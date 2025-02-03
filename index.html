@@ -18,23 +18,15 @@
                 <form id="edit-form">
                     <label for="edit-name">שם פרויקט</label>
                     <input type="text" id="edit-name" name="name">
-
-                    <label for="edit-open-bugs">מספר באגים פתוחים</label>
-                    <input type="number" id="edit-open-bugs" name="openBugs" min="0">                    
-                    
-                    <label for="edit-prod-version">גרסה</label>
-                    <input type="text" id="edit-prod-version" name="prodVersion">
-                    
-                    <!-- <label for="edit-preprod-version">PreProd Version:</label> -->
-                    <!-- <input type="text" id="edit-preprod-version" name="preprodVersion"> -->
-                                    
-                    <!-- <label for="edit-backlog">Backlog:</label> -->
-                    <!-- <textarea id="edit-backlog" name="backlog"></textarea> -->
-                    
-                    <button type="button" onclick="saveEdit()">Save</button>
+        
+                    <!-- כאן יוצגו השדות הדינמיים -->
+                    <div id="edit-fields-container"></div>
+        
+                    <button type="button" onclick="saveEdit()">שמור</button>
                 </form>
             </div>
-        </div>        
+        </div>
+          
 
         <!-- Projects Section -->
         <div class="grid-container" id="projects-container">

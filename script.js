@@ -10,6 +10,14 @@ let currentProjectIndex = null; // To track the currently edited project
 // Handle File Upload
 document.getElementById("fileInput").addEventListener("change", handleFileUpload);
 
+function renderHotItems() {
+    const hotTicker = document.getElementById("hot-items-ticker");
+    if (!hotTicker || !projectsData.length) return;
+
+    const names = projectsData.map(item => item.name).join(" • ");
+    hotTicker.textContent = names;
+}
+
 function handleFileUpload(event) {
     const file = event.target.files[0];
     if (file) {
@@ -171,7 +179,8 @@ window.addEventListener('load', () => {
                 renderProjects(projectsData);
             });
     }
-
+    
     renderProjects(projectsData);
+    renderHotItems();
 });
 

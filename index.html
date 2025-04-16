@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QA Projects Dashboard</title>
+    <title>דשבורד צוות בדיקות</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1><span class="special-title">צוות בדיקות - סטטוס באגים כללי</span></h1>
+        <h1><span class="special-title">צוות בדיקות - סטטוס פרויקטים </span></h1>
     </header>
     <main>
         <div class="ticker">
             <div class="ticker-content" id="hot-items-ticker">
               <!-- כאן נטען דינמית את שמות המוצרים -->
             </div>
-          </div>
+        </div>
+        
+        <!-- חלון מודלי לעריכה -->
         <div id="edit-modal" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="close-button" onclick="closeEditModal()">&times;</span>
@@ -24,19 +26,44 @@
                     <label for="edit-name">שם פרויקט</label>
                     <input type="text" id="edit-name" name="name">
         
-                    <!-- כאן יוצגו השדות הדינמיים -->
                     <div id="edit-fields-container"></div>
         
                     <button type="button" onclick="saveEdit()">שמור</button>
                 </form>
             </div>
         </div>
-          
+        
+        <!-- חלון מודלי להוספת פרויקט חדש -->
+        <div id="add-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeAddModal()">&times;</span>
+                <h2>הוספת פרויקט חדש</h2>
+                <form id="add-form">
+                    <label for="add-name">שם פרויקט</label>
+                    <input type="text" id="add-name" name="name" required>
+        
+                    <div id="add-fields-container"></div>
+        
+                    <button type="button" onclick="saveNewProject()">הוסף פרויקט</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- חלון מודלי להיסטוריית שינויים -->
+        <div id="history-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeHistoryModal()">&times;</span>
+                <h2>היסטוריית שינויים</h2>
+                <div id="history-container">
+                    <!-- כאן ייטען תוכן ההיסטוריה -->
+                </div>
+            </div>
+        </div>
 
         <!-- Projects Section -->
         <div class="grid-container" id="projects-container">
             <p id="no-projects-message" style="text-align: center; color: gray; display: none;">
-                No projects to display. Please upload a JSON file.
+                אין פרויקטים להצגה. אנא העלה קובץ JSON.
             </p>
         </div>
     </main>
@@ -47,7 +74,9 @@
         <input type="file" id="fileInput" accept=".json" style="display: none;">
         <button id="download-json" class="equal-buttons special-buttons" onclick="downloadUpdatedJSON()">שמור קובץ</button>
         <button id="toggle-theme" class="equal-buttons special-buttons">שנה עיצוב</button>
-        <p>&copy; 2025 QA Projects Dashboard</p>
+        <button id="add-project-button" class="equal-buttons special-buttons" onclick="openAddModal()">הוסף פרויקט</button>
+        <button id="view-history-button" class="equal-buttons special-buttons" onclick="openHistoryModal()">היסטוריה</button>
+        <p>&copy; 2025 דשבורד צוות בדיקות</p>
     </footer>
     <script src="script.js"></script>
 </body>

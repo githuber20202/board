@@ -4,6 +4,8 @@
     --card-bg: white;
     --header-bg: #007BFF;
     --accent-color: #ffffff;
+    --delete-button-color: #f44336;
+    --delete-button-hover: #d32f2f;
 }
 
 body.dark {
@@ -11,6 +13,8 @@ body.dark {
     --text-color: #f4f4f4;
     --card-bg: #3e3e3e;
     --header-bg: #1a1a1a;
+    --delete-button-color: #d32f2f;
+    --delete-button-hover: #b71c1c;
 }
 
 body {
@@ -19,6 +23,8 @@ body {
     padding: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
+    direction: rtl; /* הוספת תמיכה בכיוון RTL */
+    text-align: right; /* יישור טקסט לימין */
 }
 
 /* Header */
@@ -90,9 +96,12 @@ header {
 }
 
 /* כותרת גוף הכרטיס עם עוד פחות פדינג */
+/* הגבלת גובה הכרטיס כדי למנוע התרחבות לא רצויה */
 .card-body {
-    padding: 5px; /* היה 10px; */
+    padding: 5px;
     text-align: center;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 /* כותרת קצת יותר קטנה */
@@ -103,9 +112,14 @@ header {
 }
 
 /* טקסט יותר קטן ופחות מרווח */
+/* מניעת גלישת טקסט בתוכן הכרטיסים */
 .card-text {
-    margin: 3px 0;   /* היה 5px 0 */
-    font-size: 0.9em; /* היה 1em */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    margin: 3px 0;
+    font-size: 0.9em;
     color: var(--text-color);
 }
 
@@ -118,6 +132,24 @@ footer {
     position: fixed;
     width: 100%;
     bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+footer p {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.equal-buttons {
+    flex: 0 0 auto;
+    margin: 0 5px;
+    min-width: 140px;
 }
 
 /* Buttons */
@@ -196,7 +228,7 @@ input, textarea {
     color: black;
     border: 1px solid rgb(118, 107, 185);
     border-radius: 80px;
-    padding: 8px 16px;
+    padding: 5px 8px;
     cursor: pointer;
     font-size: 0.9em;
     transition: background-color 0.3s, color 0.3s;
@@ -278,20 +310,131 @@ button:not .upload-button {
     font-size: 2.1em;
     position: relative;
     white-space: nowrap;
-    direction: ltr; /* הכי חשוב – זה משנה את הכיוון של הטקסט */
+    direction: rtl; /* משנה את הכיוון של הטקסט לכיוון RTL */
 }
 
 .ticker-content {
     display: inline-block;
     white-space: nowrap;
-    animation: scroll-left-to-right 90s linear infinite;
+    animation: scroll-right-to-left 90s linear infinite; /* שינוי כיוון האנימציה */
 }
 
-@keyframes scroll-left-to-right {
+/* שינוי האנימציה לתנועה מימין לשמאל עבור RTL */
+@keyframes scroll-right-to-left {
     0% {
-        transform: translateX(-100%);
+        transform: translateX(100%); /* התחלה מצד ימין */
     }
     100% {
-        transform: translateX(100%);
+        transform: translateX(-100%); /* סיום בצד שמאל */
+    }
+}
+
+/* תוספות עבור היכולות החדשות */
+
+/* עיצוב כפתורי פעולה */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.action-button {
+    background-color: var(--header-bg);
+    color: white;
+    border: 1px solid rgb(161, 142, 255);
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: gold-glow 2s infinite;
+    transition: background-color 0.3s, transform 0.3s;
+    min-width: 150px;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* כפתור מחיקה בכרטיסיות */
+.delete-button {
+    background-color: white;
+    color: var(--delete-button-color);
+    border: 1px solid var(--delete-button-color);
+    border-radius: 80px;
+    padding: 5px 8px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.delete-button:hover {
+    background-color: var(--delete-button-color);
+    color: white;
+}
+
+/* קבוצת כפתורים בכרטיסיה */
+.card-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+/* עיצוב חלון היסטוריית שינויים */
+.history-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.history-date {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.history-type {
+    display: inline-block;
+    padding: 2px 5px;
+    margin-right: 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+.history-edit {
+    background-color: #FFC107;
+    color: #000;
+}
+
+.history-add {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.history-delete {
+    background-color: #f44336;
+    color: #fff;
+}
+
+/* התאמה למסכים קטנים */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .special-title {
+        font-size: 2em;
+    }
+    
+    .ticker {
+        font-size: 1.5em;
     }
 }

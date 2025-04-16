@@ -1,18 +1,17 @@
 [
     {
-        "name": "Project A",
-        "image": "https://via.placeholder.com/300x150",
-        "prodVersion": "1.0.0",
-        "preprodVersion": "0.9.5",
-        "openBugs": 10,
-        "backlog": "UI fixes, API updates"
-    },
-    {
-        "name": "Project B",
-        "image": "https://via.placeholder.com/300x150",
-        "prodVersion": "2.3.1",
-        "preprodVersion": "2.2.9",
-        "openBugs": 5,
-        "backlog": "New feature testing"
+        "name": "פרויקט לדוגמה",
+        "fieldNames": {
+            "1": "מצב",
+            "2": "סטטוס",
+            "3": "תאריך",
+            "4": "מספר באגים"
+        },
+        "fields": {
+            "1": "פעיל",
+            "2": "בתהליך",
+            "3": "15.04.2025",
+            "4": "5"
+        }
     }
 ]

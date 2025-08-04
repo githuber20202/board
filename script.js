@@ -550,3 +550,34 @@ function checkProjectStatuses() {
 // הפעלת בדיקה ראשונית ודור עתידי כל 60 שניות
 setTimeout(checkProjectStatuses, 1500); // פעם אחת עם טעינה
 setInterval(checkProjectStatuses, 60000); // כל דקה
+
+// פונקציה לבדוק חיבוריות מקומית
+function checkLocalConnectivity() {
+    const dnsServers = ["https://dns.google", "https://8.8.8.8", "https://8.8.4.4"];
+    const banner = document.getElementById("connectivity-warning");
+    let success = false;
+
+    Promise.allSettled(
+        dnsServers.map(server =>
+            fetch(server, { method: "HEAD", mode: "no-cors" })
+        )
+    ).then(results => {
+        success = results.some(result => result.status === "fulfilled");
+
+        if (!success) {
+            document.body.classList.add("connection-lost");
+            if (banner) banner.style.display = "block";
+        } else {
+            document.body.classList.remove("connection-lost");
+            if (banner) banner.style.display = "none";
+        }
+    }).catch(() => {
+        document.body.classList.add("connection-lost");
+        if (banner) banner.style.display = "block";
+    });
+}
+
+
+// בדיקה ראשונית אחרי טעינה + כל דקה
+setTimeout(checkLocalConnectivity, 2000);
+setInterval(checkLocalConnectivity, 60000);

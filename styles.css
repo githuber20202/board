@@ -288,19 +288,6 @@ button:not .upload-button {
     min-width: 200px;
 }
 
-
-@keyframes gold-glow {
-    0% {
-        text-shadow: 0 0 5px rgb(255, 255, 255);
-    }
-    50% {
-        text-shadow: 0 0 20px rgb(255, 255, 255);
-    }
-    100% {
-        text-shadow: 0 0 5px rgb(38, 0, 255);
-    }
-}
-
 /* ...existing code... */
 .ticker {
     overflow: hidden;

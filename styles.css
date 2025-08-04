@@ -317,7 +317,7 @@ button:not .upload-button {
 .ticker-content {
     display: inline-block;
     white-space: nowrap;
-    animation: scroll-right-to-left 90s linear infinite; /* שינוי כיוון האנימציה */
+    animation: scroll-right-to-left 130s linear infinite; /* שינוי כיוון האנימציה */
 }
 
 /* שינוי האנימציה לתנועה מימין לשמאל עבור RTL */

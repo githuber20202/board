@@ -264,13 +264,13 @@ input, textarea {
 
 @keyframes gold-glow {
     0% {
-        text-shadow: 0 0 5px rgb(255, 255, 255);
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
     }
     50% {
-        text-shadow: 0 0 20px rgb(255, 255, 255);
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
     }
     100% {
-        text-shadow: 0 0 5px rgb(38, 0, 255);
+        text-shadow: 0 0 2px rgba(38, 0, 255, 0.3);
     }
 }
 

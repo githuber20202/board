@@ -25,7 +25,9 @@
                 <form id="edit-form">
                     <label for="edit-name">שם פרויקט</label>
                     <input type="text" id="edit-name" name="name">
-        
+                    <label for="edit-url">כתובת אתר (URL):</label>
+                    <input type="url" id="edit-url" name="url" placeholder="https://example.com">
+
                     <div id="edit-fields-container"></div>
         
                     <button type="button" onclick="saveEdit()">שמור</button>
@@ -41,6 +43,9 @@
                 <form id="add-form">
                     <label for="add-name">שם פרויקט</label>
                     <input type="text" id="add-name" name="name" required>
+                    <label for="add-url">כתובת אתר (URL):</label>
+                    <input type="url" id="add-url" name="url" placeholder="https://example.com">
+
         
                     <div id="add-fields-container"></div>
         

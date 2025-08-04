@@ -89,6 +89,7 @@ header {
     padding: 10px; /* היה 20px; עכשיו רק 10px */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
+    position: relative; /* דרוש כדי שהנורה תישב בפינה */
 }
 
 .card:hover {
@@ -437,4 +438,17 @@ button:not .upload-button {
     .ticker {
         font-size: 1.5em;
     }
+}
+
+.status-indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1.5px solid turquoise;
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    box-shadow: 0 0 4px rgba(64, 224, 208, 0.3);
+    transition: background-color 0.3s ease-in-out;
 }

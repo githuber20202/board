@@ -95,16 +95,20 @@ function renderProjects(projects) {
             fieldsHTML += `<p class="card-text"><strong>${fieldName}:</strong> ${fieldValue}</p>`;
         }
 
+        const statusIndicator = `<div class="status-indicator" data-index="${index}" style="background-color: white;" title="לא נבדק"></div>`;
+
         card.innerHTML = `
-            <div class="card-body">
-                <h3 class="card-title" title="${project.name}">${truncatedName}</h3>
-                ${fieldsHTML}
-                <div class="card-buttons">
-                    <button class="delete-button" onclick="confirmDelete(${index})">מחק</button>
-                    <button class="edit-button" onclick="openEditModal(${index})">עריכה</button>
-                </div>
+        <div class="card-body">
+            <h3 class="card-title" title="${project.name}">${truncatedName}</h3>
+            ${fieldsHTML}
+            <div class="card-buttons">
+                <button class="delete-button" onclick="confirmDelete(${index})">מחק</button>
+                <button class="edit-button" onclick="openEditModal(${index})">עריכה</button>
             </div>
+            <div class="status-indicator" data-index="${index}" title="לא נבדק"></div>
+        </div>
         `;
+
 
         container.appendChild(card);
     });
@@ -146,13 +150,18 @@ function openEditModal(index) {
             <input type="text" id="edit-field-value-${i}" value="${fieldValue}" maxlength="20">
         `;
     }
-
+        
+    const editURL = document.getElementById("edit-url");
+    if (editURL) {
+        editURL.value = project.url || "";
+    }
     fieldsContainer.innerHTML = fieldsHTML;
     
     const editModal = document.getElementById("edit-modal");
     if (editModal) {
         editModal.style.display = "block";
     }
+    
 }
 
 // סגירת מודל עריכה
@@ -284,6 +293,12 @@ function saveEdit() {
             project.name = nameInput.value.trim();
         }
 
+        // איסוף כתובת האתר
+        const urlInput = document.getElementById("edit-url");
+        if (urlInput) {
+            project.url = urlInput.value.trim();
+        }
+
         // יצירת מבנה נתונים במקרה שהוא חסר
         if (!project.fieldNames) project.fieldNames = {};
         if (!project.fields) project.fields = {};
@@ -347,6 +362,9 @@ function saveNewProject() {
         }
     }
     
+    const urlInput = document.getElementById("add-url");
+    newProject.url = urlInput?.value.trim() || "";
+
     // הוספת הפרויקט למערך הנתונים
     projectsData.push(newProject);
     
@@ -505,3 +523,30 @@ window.addEventListener('load', () => {
     }
 	addTextLengthLimit();
 });
+
+function checkProjectStatuses() {
+    projectsData.forEach((project, index) => {
+        const indicator = document.querySelector(`.status-indicator[data-index="${index}"]`);
+        if (!indicator) return;
+
+        if (!project.url || !project.url.startsWith("http")) {
+            indicator.style.backgroundColor = "white";
+            indicator.title = "לא הוזנה כתובת אתר";
+            return;
+        }
+
+        fetch(project.url, { method: "HEAD", mode: "no-cors" })
+            .then(() => {
+                indicator.style.backgroundColor = "#8DC71E";
+                indicator.title = "האתר זמין";
+            })
+            .catch(() => {
+                indicator.style.backgroundColor = "#ff0033";
+                indicator.title = "שגיאה בגישה לאתר";
+            });
+    });
+}
+
+// הפעלת בדיקה ראשונית ודור עתידי כל 60 שניות
+setTimeout(checkProjectStatuses, 1500); // פעם אחת עם טעינה
+setInterval(checkProjectStatuses, 60000); // כל דקה
